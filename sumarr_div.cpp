@@ -15,9 +15,9 @@ int sumarr_div(int a[], int n)
 
     int mid = n / 2;
     int rsize = n - mid;
-    int lsum = sumarr_div(a, mid);
-    int rsum = sumarr_div(a + mid, rsize);
-    return lsum + rsum;
+    int leftsum = sumarr_div(a, mid);
+    int rightsum = sumarr_div(a + mid, rsize);
+    return leftsum + rightsum;
 }
 
 int main(){

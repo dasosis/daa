@@ -25,9 +25,5 @@ int main(int argc, char const *argv[])
             cout<<adj_list[i][j]+1<<" ";
         }
         cout<<endl;        
-    }
-    
-    
-
-    
+    }     
 }

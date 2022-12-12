@@ -10,7 +10,7 @@ int main () {
     // Start measuring time
     auto start = std::chrono::high_resolution_clock::now();
     
-    long iterations = 50;
+    long iterations = 75000000;
     for (i=0; i<iterations; i++) {
         sum = sum + i;
     }

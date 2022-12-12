@@ -21,7 +21,7 @@ void insertionSort(vector<int> &a)
 
 int main () 
 {
-    vector<int> v;int n=100000;
+    vector<int> v;int n=1000;
     //cout<<"Input the number of elements to be filled into the vector : ";cin>>n;
     srand(time(0));
     for(int i=0;i<n;i++) v.push_back(rand()%10000+1);

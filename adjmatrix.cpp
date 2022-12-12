@@ -109,7 +109,6 @@ int main(int argc, char const *argv[])
         }
         A.push_back(v1);
     }
-    printAdjMatrix(A);
     printGraphStruct(A);
     printIO(A);
     checkIO(A);

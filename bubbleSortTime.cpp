@@ -14,8 +14,7 @@ void bubbleSort(vector<long> &a)
 
 int main () 
 {
-    vector<long> v;long n=100000;
-    //cout<<"Input the number of elements to be filled into the vector : ";cin>>n;
+    vector<long> v;long n=5000;
     srand(time(0));
     for(long i=0;i<n;i++) v.push_back(rand()%10000+1);
     

@@ -1,58 +1,96 @@
-#include<iostream>
+#include<bits/stdc++.h>
 #include<vector>
 #include<stack>
 using namespace std;
 
-vector<int> bfs(vector<vector<int>> adj_list,int v1)
+vector<int> dfs(vector<vector<int>> A,int v0)
 {
     stack<int> S;
-    vector<int> B;
-    vector<bool> V(adj_list.size()+1, 0);
-    V[v1]=1;
-    S.push(v1);
-    B.push_back(v1);
+    vector<int> trav;
+    vector<bool> visited(A.size(), 0);
+    cout<<A.size();
+    visited[v0] = 1;
+    S.push(v0);
+    trav.push_back(v0);
     while(!S.empty())
     {
         int node = S.top();
-        S.pop();
-        for(int i = 0; i < adj_list[node].size(); i++)
-            if(!V[adj_list[node][i]])
+        for (int i = 0; i < A[node].size(); i++)
+        {
+            if (!visited[A[node][i]])
             {
-                V[adj_list[node][i]]=1;
-                S.push(adj_list[node][i]);
-                B.push_back(adj_list[node][i]);
+                S.push(A[node][i]);
+                visited[A[node][i]] = 1;
+                trav.push_back(A[node][i]);
             }
+            
+        }
+        
+        S.pop();
     }
-    return B;
+    return trav;
+    // {
+    //    int node = S.top();
+    //    S.pop();
+    //    visited[node] = 1;
+    //    for(int i = 0; i < A[node].size(); i++)
+    //        if(!visited[A[node][i]])
+    //        {
+    //            S.push(A[node][i]);
+    //            trav.push_back(A[node][i]);
+    //        }
+    // }
+    // return trav;
 }
 
 int main()
 {
     int v,e;
     int i,start,end;
-    cout<<"Enter number of vertices ";
-    cin>>v;
+    //cout<<"Enter number of vertices ";
+    //cin>>v;
+    v = 5; e = 7;
+    vector<vector<int>> A(v);
+    //cout<<"Enter number of edges ";
+    //cin>>e;
+    //for(i = 0; i < e; i++)
+    //{
+    //    cin>>start>>end;
+    //    A[start-1].push_back(end-1);
+    //    A[end-1].push_back(start-1);
+    //}
+    A[1-1].push_back(2-1);
+    A[1-1].push_back(5-1);
+    A[2-1].push_back(1-1);
+    A[2-1].push_back(5-1);
+    A[2-1].push_back(3-1);
+    A[2-1].push_back(4-1);
+    A[3-1].push_back(2-1);
+    A[3-1].push_back(4-1);
+    A[4-1].push_back(2-1);
+    A[4-1].push_back(5-1);
+    A[4-1].push_back(3-1);
+    A[5-1].push_back(4-1);
+    A[5-1].push_back(1-1);
+    A[5-1].push_back(2-1);
     
-    vector<vector<int>> adj_list(v+1);
-    
-    cout<<"Enter number of edges ";
-    cin>>e;
-    
-    for(i = 0; i < e; i++)
+    //for(int i = 0; i < A.size(); i++)
+    //{
+    //    cout<<i+1<<"->";
+    //    for (int j = 0; j < A[i].size(); j++)
+    //    {
+    //        cout<<A[i][j]+1<<" ";
+    //    }
+    //    cout<<endl;
+    //}
+    vector<int> trav = dfs(A, 0);
+    cout<<"back";
+    //cout<<"Breadth First Traversal : ";
+    for (int i = 0; i < trav.size(); i++)
     {
-        cin>>start>>end;
-        adj_list[start].push_back(end);
-        adj_list[end].push_back(start);
+        cout<<trav[i]+1<<" ";
     }
     
-    vector<int> B = bfs(adj_list, 1);
-
-    cout<<"Breadth First Traversal : ";
-    for(int i = 0; i < B.size(); i++)
-    {
-        cout<<B[i];
-        if(i < B.size()-1) 
-        cout<<"->";
-    }
+    
     return 0;
 }

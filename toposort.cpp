@@ -1,77 +1,52 @@
-#include <bits/stdc++.h>
-
+#include<bits/stdc++.h>
+#include<vector>
+#include<stack>
 using namespace std;
-class Graph {
-	int V;
-	list<int>* adj;
-	void topologicalSortUtil(int v, bool visited[], stack<int>& Stack);
 
-	public:
-		Graph(int V);
-		void addEdge(int v, int w);
-		void topologicalSort();
-};
+stack<int> S;
 
-Graph::Graph(int V)
+void toposort(vector<vector<int>> A, vector<bool> &V, int node)
 {
-	this->V = V;
-	adj = new list<int>[V];
+	V[node] = 1;
+	for (auto it: A[node])
+	{
+		if (!V[it])
+		{
+			toposort(A,V,it);
+		}
+	}
+	S.push(node);
 }
 
-void Graph::addEdge(int v, int w)
-{
-	adj[v].push_back(w);
-}
 
-void Graph::topologicalSortUtil(int v, bool visited[], stack<int>& Stack)
+int main(int argc, char const *argv[])
 {
-	visited[v] = true;
-	list<int>::iterator i;
-	for (i = adj[v].begin(); i != adj[v].end(); ++i)
-		if (!visited[*i])
-			topologicalSortUtil(*i, visited, Stack);
-	Stack.push(v);
-}
-void Graph::topologicalSort()
-{
-	stack<int> Stack;
-	bool* visited = new bool[V];
-	for (int i = 0; i < V; i++)
-		visited[i] = false;
-	for (int i = 0; i < V; i++)
-		if (visited[i] == false)
-			topologicalSortUtil(i, visited, Stack);
-
-	while (Stack.empty() == false) {
-		cout << Stack.top() << " ";
-		Stack.pop();
+    int n_vert,n_edge,start,end;
+    vector<int> trav_order;
+    cout<<"enter number of vertices ";
+    cin>>n_vert;
+    vector<vector<int>> adj_list(n_vert);
+    cout<<"enter number of edges ";
+    cin>>n_edge;
+    cout<<"enter start and end vertices of the edges"<<endl;
+    for (int i = 0; i < n_edge; i++)
+    {
+        cin>>start>>end;
+        adj_list[start-1].push_back(end-1);
+    }
+	
+    vector<bool> visited(n_vert,0);
+	for (int i = 0; i < n_vert; i++)
+	{
+		if(!visited[i])
+			toposort(adj_list,visited,i);
+	}
+    cout<<"topologically sorted order : ";
+    for (int i = 0; !S.empty(); i++)
+	{
+		cout<<S.top()+1<<" ";
+		S.pop();
 	}
 	
-	delete [] visited;
+    return 0;
 }
-
-int main()
-{
-	int n,e,e1,e2;
-	cout<<"how many nodes - ";
-	cin>>n;
-	Graph g(n);
-	cout<<"how many edges - ";
-	cin>>e;
-	for (int i = 0; i < e; i++)
-	{
-		cin>>e1>>e2;
-		g.addEdge(e1,e2);
-	}
-	g.topologicalSort();
-	return 0;
-}
-
-
-
- 	
-    
-    
-    
-    
-    

@@ -1,67 +1,29 @@
-#include <bits/stdc++.h>
+#include<iostream>
+#include<bits/stdc++.h>
+#include<vector>
 using namespace std;
-class Graph {
-	int V;
-	list<int>* adj;
-	void topologicalSortUtil(int v, bool visited[], stack<int>& Stack);
 
-	public:
-		Graph(int V);
-		void addEdge(int v, int w);
-		void topologicalSort();
-};
-
-Graph::Graph(int V)
+int main(int argc, char const *argv[])
 {
-	this->V = V;
-	adj = new list<int>[V];
-}
-
-void Graph::addEdge(int v, int w)
-{
-	adj[v].push_back(w);
-}
-
-void Graph::topologicalSortUtil(int v, bool visited[], stack<int>& Stack)
-{
-	visited[v] = true;
-	list<int>::iterator i;
-	for (i = adj[v].begin(); i != adj[v].end(); ++i)
-		if (!visited[*i])
-			topologicalSortUtil(*i, visited, Stack);
-	Stack.push(v);
-}
-void Graph::topologicalSort()
-{
-	stack<int> Stack;
-	bool* visited = new bool[V];
-	for (int i = 0; i < V; i++)
-		visited[i] = false;
-	for (int i = 0; i < V; i++)
-		if (visited[i] == false)
-			topologicalSortUtil(i, visited, Stack);
-
-	while (Stack.empty() == false) {
-		cout << Stack.top() << " ";
-		Stack.pop();
-	}
-	
-	delete [] visited;
-}
-
-int main()
-{
-	int n,e,e1,e2;
-	cout<<"how many nodes - ";
-	cin>>n;
-	Graph g(n);
-	cout<<"how many edges - ";
-	cin>>e;
-	for (int i = 0; i < e; i++)
-	{
-		cin>>e1>>e2;
-		g.addEdge(e1,e2);
-	}
-	g.topologicalSort();
-	return 0;
+    int node,edge,v1,v2;
+    cout<<"Enter the number of nodes ";
+    cin>>node;
+    cout<<"Enter the number of edges ";
+    cin>>edge;
+    vector<vector<int>> adj_list(node);
+    for (int i = 0; i < edge; i++)
+    {
+        cin>>v1>>v2;
+        adj_list[v1-1].push_back(v2-1);
+        adj_list[v2-1].push_back(v1-1);
+    }
+    for (int i = 0; i < node; i++)
+    {
+        cout<<i+1<<"->";
+        for (int j = 0; j < adj_list[i].size(); j++)
+        {
+            cout<<adj_list[i][j]+1<<" ";
+        }
+        cout<<endl;        
+    }     
 }

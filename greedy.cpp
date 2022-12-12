@@ -49,3 +49,5 @@ int greedysort(int* A, int L)
         *(A+min) = temp;
     }
 }
+
+
